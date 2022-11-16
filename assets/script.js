@@ -9,7 +9,7 @@ var questionsEl = document.getElementById("questions");
 var choicesEl = document.getElementById("choices");
 var titleEl = document.getElementById("question-title");
 var feedbackEl = document.getElementById("feedback");
-
+var endScreenEl = document.getElementById("end-screen");
 
 var questions = [
   {
@@ -77,6 +77,21 @@ function questionClick(e) {
     window.alert("Wrong!");
   }
   currentQuestionIndex++;
+
+  if (time <= 0 || currentQuestionIndex === questions.length) {
+    gameOver();
+    console.log("game over");
+  } else {
+    getQuestion();
+  }
+}
+
+function gameOver() {
+  endScreenEl.removeAttribute("class");
+  var finalScoreEl = document.getElementById("final-score");
+  finalScoreEl.textContent = time;
+
+  questionsEl.setAttribute("class", "hide");
 }
 
 function countdown() {
