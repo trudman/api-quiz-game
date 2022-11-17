@@ -10,6 +10,8 @@ var choicesEl = document.getElementById("choices");
 var titleEl = document.getElementById("question-title");
 var feedbackEl = document.getElementById("feedback");
 var endScreenEl = document.getElementById("end-screen");
+var submitBtn = document.getElementById("submit");
+var initialsEl = document.getElementById("initials");
 
 var questions = [
   {
@@ -64,6 +66,14 @@ function getQuestion() {
     choicesEl.appendChild(choiceBtn);
   }
 }
+function countdown() {
+  time--;
+  timerEl.textContent = time;
+
+  if (time <= 0) {
+    time = 0;
+  }
+}
 
 function questionClick(e) {
   var selectedButton = e.target;
@@ -93,14 +103,25 @@ function gameOver() {
 
   questionsEl.setAttribute("class", "hide");
 }
+// Check if there is anything in local storage (globally)
+// Yes: JSON.parse that
+// NO : Create new array
+// Render/display scores on the screen based on the new array
 
-function countdown() {
-  time--;
-  timerEl.textContent = time;
+function saveHighScore() {
+  var initials = initialsEl.value;
+  var highScore = JSON.parse(window.localStorage.getItem("highscores")) || [];
 
-  if (time <= 0) {
-    time = 0;
-  }
+  var newScore = {
+    initials: initials,
+    score: time,
+  };
+
+  highScore.push(newScore);
+  window.localStorage.setItem("highscores", JSON.stringify(highScore));
+  window.location.href = "highscores.html";
 }
 
 choicesEl.onclick = questionClick;
+
+submitBtn.onclick = saveHighScore;
