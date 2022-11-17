@@ -102,7 +102,6 @@ function gameOver() {
   endScreenEl.removeAttribute("class");
   var finalScoreEl = document.getElementById("final-score");
   finalScoreEl.textContent = time;
-
   questionsEl.setAttribute("class", "hide");
 }
 
