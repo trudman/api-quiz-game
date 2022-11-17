@@ -12,6 +12,7 @@ var feedbackEl = document.getElementById("feedback");
 var endScreenEl = document.getElementById("end-screen");
 var submitBtn = document.getElementById("submit");
 var initialsEl = document.getElementById("initials");
+var highscoresEl = document.getElementById("highscores");
 
 var questions = [
   {
@@ -47,7 +48,7 @@ startBtn.addEventListener("click", startQuiz);
 function startQuiz() {
   console.log("Start");
   startScreen.setAttribute("class", "hide");
-  var timerStart = setInterval(countdown, 1000);
+  timerStart = setInterval(countdown, 1000);
   questionsEl.removeAttribute("class");
   getQuestion();
 }
@@ -97,16 +98,13 @@ function questionClick(e) {
 }
 
 function gameOver() {
+  clearInterval(timerStart);
   endScreenEl.removeAttribute("class");
   var finalScoreEl = document.getElementById("final-score");
   finalScoreEl.textContent = time;
 
   questionsEl.setAttribute("class", "hide");
 }
-// Check if there is anything in local storage (globally)
-// Yes: JSON.parse that
-// NO : Create new array
-// Render/display scores on the screen based on the new array
 
 function saveHighScore() {
   var initials = initialsEl.value;
